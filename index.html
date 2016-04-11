@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Java - introduction</title>
+  <meta name="description" content="Java Basics">
+  <meta name="author" content="Hakim El Hattab">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+  var link = document.createElement( 'link' );
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+  document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">      
+                <section>
+                    <h1>Java</h1>
+                    <h3>introduction</h3>
+                    <p>
+                        <small><a href="http://blog.crafting-labs.fr">Antoine Vernois</a> / <a href="http://twitter.com/avernois">@avernois</a></small>
+
+                    </p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Antoine Vernois</h2>
+                        <p>Software Craftsman</p>
+                        <p class="fragment">Software Anarchist</p>
+                        <p>blog : <a href="https://blog.crafting-labs.fr">https://blog.crafting-labs.fr</a></p>
+                        <p>twitter : <a href="http://twitter.com/avernois">@avernois</a></p>
+                    </section>
+
+                    <section>
+                        <h2>et vous ?</h2>
+                        <h3>post-it</h3>
+                        <p>Vous attendez quoi de cette formation ?</p>
+                        <br>
+                        <div class="fragment">
+                            <h3>tour de table</h3>
+
+                            <ul class="fragment">
+                                <li>qui êtes vous ?</li>
+                                <li>qu'est ce que vous faites ?</li>
+                                <li>qu'est ce que vous aimez ?</li>
+                                <li>qu'est ce que vous aimez moins ?</li>
+                                <li>votre expérience avec les tests et le tdd ?</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>détails pratiques</h3>
+                        <ul>
+                            <li>horaires</li>
+                            <li>repas</li>
+                            <li>pauses</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section><h1>Basics</h1></section>
+
+                    <section><h2>Hello World!</h2>
+                        Hello.java :
+                        <pre><code data-trim>
+class Hello
+{
+  public static void main(String[] args)
+  {
+    System.out.println("Hello World!");
+  }
+}
+                        </code></pre>
+                    </section>
+
+                    <section><h2>Compilation &amp; bytecode</h2>
+                        <p>Compilation avec javac
+                        <pre><code>
+javac Hello.java
+                        </code></pre>
+                        La compilation produit du bytecode Hello.class.</p>
+                        <p>Le bytecode est indépendant de la plateforme.
+                    </section>
+                    <section><h2>Exécution</h2>
+                    <pre><code>
+java Hello
+                        </code></pre>
+                        ou en spécifiant le classpath
+                    <pre><code>
+java -classpath &lt;dir&gt; Hello
+                        </code></pre></section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Types</h1>
+                    </section>
+                    <section>
+                        <h2>Statiquement typé</h2>
+                        Une variable doit être déclaré, et son type connu, avant d'être utilisé.
+                        <pre><code data-trim class="java">
+int variable = 1;
+                        </code></pre>
+                        Il n'y a (presque) pas d'inférence de type ! 
+                    </section>
+                    <section>
+                        <h2>types primitifs</h2>
+                        <p>8 types de base</p>
+                        <ul>
+                            <li>byte</li>
+                            <li>short</li>
+                            <li>int</li>
+                            <li>long</li>
+                            <li>float</li>
+                            <li>double</li>
+                            <li>boolean</li>
+                            <li>char</li>
+                        </ul>
+                        <p>Ces éléments ne sont pas des objets. On les affecte directement, sans <code>new</code> ou appel à un constructeur.</p>
+                    </section>
+                    <section>
+                        <h2>Wrappers</h2>
+                        Chaque primitif est encapsulé dans une classe.
+                        <ul>
+                            <li>int -&gt; Integer</li>
+                            <li>short -&gt; Short</li>
+                            <li>...</li>
+                            <li>char -&gt; Character</li>
+                        </ul>
+                        <p>Il est déconseillé d'utiliser <code>new</code>. Il est préférable de faire appel à <code>.valueOf( )</code> ou <code>parse()</code>.</p>
+                    </section>
+                    <section>
+                        <h2>Conversion</h2>
+<pre><code data-trim class="java">
+int i = 1000;
+int hexa = 0x1a; // hexa = 26
+int binary = 0b1111; // binary = 15
+
+double d1 = 123.4d; 
+double d1bis = 123.4; // 'd' est pas défaut, et généralement omis. 
+double d2 = 1.234e2;
+float f = 123.4f;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Underscore dans les nombres</h2>
+                        Pour améliorer la lisibilité des nombres, on peut y insérer des underscores.
+                        <pre><code data-trim class="java">
+long creditCardNumber = 1234_5678_9012_3456L;
+float pi =  3.14_15F;
+                        </code></pre>
+                        On ne peut mettre un underscore uniquement entre 2 nombres.
+                    </section>  
+                    <section>
+                        <h2>Arrays</h2>
+                        <pre><code data-trim class="java">
+int[] intArray = new int[10]; // crée un tableau d'int de taille 10.
+Integer[] integerArray = new Integer[10];
+
+intArray[0] = 1;
+
+String[] months = {"january", "february", "march"};
+                        </code></pre>
+
+                    </section>
+                    <section>
+                        <h2>Enum</h2>
+                        <pre><code data-trim class="java">
+public enum Month {
+    JANUARY, FEBRUARY, MARCH, APRIL 
+    // je ne les mets pas tous, vous avez saisi l'idée.
+}                            
+                        </code></pre>
+                        On peut y ajouter un constructeur
+                        <pre><code data-trim class="java">
+public enum Month {
+    JANUARY("Jan"), FEBRUARY("Feb"), MARCH("Mar"), APRIL // idem
+
+    private String shortName;
+
+    private Month(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public getShortName() {
+        return shortName;
+    }
+}                            
+                        </code></pre> 
+                        Usage :
+                        <pre><code data-trim class="java">
+Month january = Month.JANUARY;
+                        </code></pre>         
+                    </section>
+                </section>
+
+
+                <section>
+                    <section>
+                        <h1>Structure de contrôle</h1>
+                    </section>
+
+                    <section>
+                        <h2>if (else) (if)</h2>
+                        <pre><code data-trim class="java">
+if (boolean) {
+    // do things when boolean is true
+}
+                        </code></pre>
+                        <pre><code data-trim class="java">
+if (boolean) {
+    // do things when boolean is true
+} else {
+    // do things when boolean is false
+}
+                        </code></pre>
+                        <pre><code data-trim class="java">
+if (boolean) {
+    // do things when boolean is true
+} else if (anotherBoolean) {
+    // do things when boolean is false and anotherBoolean is true
+} else {
+    //
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>switch</h2>
+                        <pre><code data-trim class="java">
+public String monthNumberToText(Integer monthNumber) {
+    String monthText;
+    switch(monthNumber) {
+        case 1: 
+            monthText = "January";
+            break;
+        case 2: 
+            monthText = "February";
+            break;
+        // handle all cases
+        default:
+            throw new InvalidMonthNumberException(monthNumber);
+    }
+}
+                        </code></pre>
+                        Fonctionne avec un Enum, un nombre (Integer, Byte, Short, Character) ou une String
+                    </section>
+                    <section>
+                        <h2>Ternary</h2>
+                        <pre><code data-trim class="java">
+(i &lt; 2) ? System.out.println("i est inférieur à 2")
+        : System.out.println("i est supérieur ou égal à 2");
+                        </code></pre>
+                        <pre><code data-trim class="java">
+public String stringOrEmptyString(String input)
+    return (input == null) ? ""
+                           : input;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>(do) while</h2>
+                        <pre><code data-trim class="java">
+while (boolean) {
+    // do things
+}
+                        </code></pre>
+                       <pre><code data-trim class="java">
+do {
+    // do things
+} while (boolean)
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>For (each)</h2>
+                        <pre><code data-trim class="java">
+for (int i = 0; i &lt; 10; i++) {
+    System.out.println(i);
+}
+                        </code></pre>
+                        <pre><code data-trim class="java">
+List<String> chaines = ... ; 
+for (String chaine: chaines) {
+    System.out.println(chaine);
+}
+                        </code></pre>
+                    </section>
+                </section>
+
+
+                <section>
+                    <section>
+                        <h1>Classes, méthodes, ...</h1>
+                    </section>
+                    <section>
+                        <h2>Package</h2>
+                        Les classes sont regroupés en package. Le package est défini en tête du fichier de la classe et doit se situer dans le répertoire correspondant.
+                        <pre><code data-trim class="java">
+package fr.craftinglabs.training.java;
+                        </code></pre>
+                        dans le répertoire
+                        <pre><code data-trim class="java">
+fr/craftinglabs/training/java;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>import</h2>
+                        pour utiliser une classe d'un autre package, il faut l'importer.
+                        <pre><code data-trim class="java">
+package training.java;
+
+import training.java.another.MyClass;
+import java
+import training.java.another2.*; // importe toutes les classes publiques du package
+                        </code></pre>
+                        Souvent, l'IDE s'occupe de ça pour vous :)
+                    </section>
+
+                    <section>
+                        <h2>Classes </h2>
+                        <pre><code data-trim class="java">
+public class Point {
+    int x; // variable d'instance
+    int y;
+
+    public Class(int x, int y) {
+        this.x = x; // this se réfère à l'instance
+        this.y = y;
+    }
+
+    public int getX() {
+        return x; // pas de surcharge, inutile de préciser le this.
+    }
+}
+                        </code></pre>
+                        <h3>Accès</h3>
+                        <pre><code data-trim class="java">
+//...
+static public void main() {
+    Point point = new Point(1, 2); // instanciation
+    System.out.println("X=" + point.getX();
+}
+
+                        </code></pre>    
+                    </section>
+                    <section>
+                        <h2>Variables et méthodes de classe</h2>
+                      <pre><code data-trim class="java">  
+public class Point {
+    private int x;
+    private int y;
+    static int maxX = 256;
+
+    static public getMaxX() { // méthode de classe
+        // dans une méthode statique, this n'existe pas. 
+        // Il est impossible d'accéder à this.x ou this.y.
+        return maxX;
+    }
+}
+                        </code></pre>
+                        <h3>Accès</h3>
+                        <pre><code data-trim class="java">
+//...
+static public void main() {
+    Point.getMaxX(); // pas besoin d'instancier
+}
+
+                        </code></pre>    
+                    </section>
+                    <section>
+                        <h2>Constructeurs</h2>
+                        <pre><code data-trim class="java">                        
+ public class Point {
+    int x;
+    int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Point() { // plusieurs constructeurs
+        this(0, 0); // appel à un autre constructeur
+    }
+}
+                        </code></pre>
+                        Si aucun constructeur n'est spécifié, le compilateur en créera un d'office sans paramètre. Les variables d'instances seront iniatilisé avec des valeurs par défaut. C'est souvent une mauvaise idée.
+                    </section>
+
+                    <section>
+                        <h2>Déstructeurs</h2>
+                        Il n'y en a pas vraiment. C'est le Garbage Collector qui s'occupe de libérer la mémoire lorsque les instances ne sont plus accessibles.
+                    </section>
+                    
+                    <section>
+                        <h2>Modifieurs d'accès</h2>
+                        <h3>classes</h3>
+                        <ul>
+                            <li>public : accessible par tout le monde</li>
+                            <li>no modifier : accessible depuis la classe, le package</li>
+                        </ul>
+                        
+                        <h3>méthodes et variables</h3>
+                        <ul>
+                            <li>public : accessible par tout le monde</li>
+                            <li>protected : accessible depuis la classe, le package et les sous-classes</li>
+                            <li>private : accessible uniquement depuis la classe</li>
+                            <li>no modifier : à la même visibilité que la classe</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Inner / nested classes</h2>
+                        Cercle.java : 
+                         <pre><code data-trim class="java">
+public class Circle {
+    private Point center = new Point(1, 2);
+    private int diameter;
+
+    class Point { // le modifier public n'est pas possible
+        // définition de la classe, variable, constructeur...
+        // On est dans Cercle, donc on a accès à diameter et center
+    }
+}
+
+class AnotherPoint { // déclarée dans le même fichier
+    // cela reste une classe indépendante, 
+    // elle n'a pas accès aux éléments private de Cercle
+    // elle ne peux pas être public
+}
+                        </code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h1>Héritage</h1>
+                    </section>
+                    <section>
+                        <h2>extends</h2>
+                        <pre><code data-trim class="java">
+public class Circle extends Shape {
+    private int radius;
+    private Point center;
+
+    public Circle(Point center, int radius) {
+        super(); // appelle constructeur de la classe parente
+        this.radius = radius; // les éléments spécifiques
+        this.center = center;
+    }
+
+    @Override // surcharge une méthode présente dans la classe parente
+    public float surface() {
+        return Math.PI * Math.square(radius);
+    }
+}
+                        </code></pre>  
+                        <p>Pas d'héritage multiple.</p> 
+                        <p>La classe fille a accès aux méthodes et variables <code>public</code> et <code>protected</code> de la classe mère.</p>
+                        <p>Les constructeurs doivent être surchargés.</p>
+                    </section>
+                    <section>
+                        <h2>final</h2>
+                        <p>Une méthode avec le modifier <code>final</code> ne peut pas être surchargées dans une sous-classe.</p>
+                    </section>
+                    <section>
+                        <h2>Classe abstraite</h2>
+                        <pre><code data-trim class="java">
+abstract public class Shape {
+    
+    abstract public float surface(); // méthode sans implémentation
+}
+                        </code></pre>
+                        <p>Une classe abstraite ne peut pas être instancier.</p>
+                        <p>Elle peut contenir des méthodes abstraites, sans implémentation, qui devront être définié par les sous-classes.</p>
+                    </section>
+                    <section>
+                        <h2>Les interfaces</h2>
+                        <pre><code data-trim class="java">
+interface Perimeter {
+    float perimeter();
+}
+                        </code></pre>
+                        <pre><code data-trim class="java">
+public class Square implements Perimeter {
+    public float perimeter () {
+        return sideSize * 4;
+    }
+}
+                        </code></pre>
+                        <p>L'interface sépare le contrat de l'implémentation.</p>
+                        <p>Une classe peut implémenter plusieurs interface.</p>
+                        <p>L'interface peut contenir des constantes (<code>final static</code>) de classes. À utiliser avec prudence.</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Exceptions</h1>
+                    </section>
+                    <section>
+                        <h2>récuperation</h2>
+                        <pre><code data-trim class="java">
+public void myMethod() {
+    try {
+        doRiskyThings();
+    } catch (AnException e) {
+        doSomething();
+    } catch (AnotherOne e) {
+        e.printStackTrace();
+    } finally {
+        // peu importe ce qui c'est passé, on passera par là.
+    }   
+}
+                        </code></pre>
+                        <p>Si une exception n'est pas rattrapée, elle est propagée le long de la chaîne d'appel. Jusqu'à tomber dans un <code>catch</code> ou arrêter le programme.</p>
+                    </section>
+                    <section>
+                        <h2>checked / unchecked</h2>
+                        <ul>
+                            <li>Error : les problèmes de systèmes environnement. <code>OutOfMemoryError, VirtualMachineError</code></li>
+                            <li>RuntimeException (aka unchecked exceptions) : erreur de programmation <code>NullPointerException</code></li>
+                            <li>checked exceptions : tout le reste. Elles doivent être rattrappées.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>checked / unchecked</h2>
+                        Une méthode doit déclarer les checked exceptions qu'elle peut lever :
+                        <pre><code data-trim class="java">
+public void myMethod() throws MyCheckedException {
+    // do something
+    if(somethingWrongHappened) {
+        throw new MyCheckedException();
+    }
+}
+                        </code></pre>
+                        Un appelant de cette méthode a l'obligation de la catcher ou de déclarer à son tour qu'il peut la lever (<code>catch</code> ou <code>throws</code>)
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Généricité</h1>
+                    </section>
+                    <section>
+                        <h2>intérêt</h2>
+                        Éviter des casts hasardeux et permettre au compilateur de vérifier les types correctement.
+                        <pre><code data-trim class="java">
+List list = new ArrayList();
+list.add("hello");
+String s = (String) list.get(0); // caster, c'est toujours risqué.
+list.add(1); // compile sans problème
+                        </code></pre>
+                        <pre><code data-trim class="java">
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("hello");
+String s = list.get(0);
+list.add(1); // ne compile pas ! 1 n'est pas une string
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>code générique</h2>
+                        <pre><code data-trim class="java">
+public class Pair&lt;K, V&gt; {
+    private K key;
+    private V value;
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+}
+                        </code></pre>
+                        <pre><code data-trim class="java">
+Pair&lt;Integer, String&gt; pair = new Pair&lt;Integer, String&gt;(1, "1");
+Pair&lt;Integer, String&gt; diamondPair 
+                = new Pair&lt;&gt;(1, "1"); // depuis java 7.
+                        </code></pre>
+
+                    </section>
+
+                </section>
+                <section>
+                    <section><h1></h1></section>
+                </section>
+                <section>
+                    <section></section>
+                </section>
+                <section>
+                    <section></section>
+                </section>
+                    
+                <section>
+                    <section>
+                        <h1>JPA</h1>
+                        <h3>&amp; hibertnate</h3>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Mémoire</h1>
+                        <h1>&amp; garbage collection</h1>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Threads</h1>    
+                    </section>
+                </section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+
+            </script>
+
+        </body>
+        </html>
